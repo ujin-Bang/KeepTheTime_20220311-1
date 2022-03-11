@@ -45,6 +45,7 @@
             android:layout_marginTop="20dp"/>
 
         <EditText
+            android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="이메일 입력"
@@ -57,12 +58,14 @@
             android:text="비밀번호" />
 
         <EditText
+            android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="비밀번호 입력"
             android:inputType="textPassword"/>
 
         <Button
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="로그인" />
