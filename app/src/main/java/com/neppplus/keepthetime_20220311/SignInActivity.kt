@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import com.neppplus.keepthetime_20220311.api.APIList
 import com.neppplus.keepthetime_20220311.api.ServerAPI
 import com.neppplus.keepthetime_20220311.databinding.ActivitySignInBinding
+import com.neppplus.keepthetime_20220311.datas.BasicResponse
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,8 +31,8 @@ class SignInActivity : BaseActivity() {
             val inputEmail = binding.edtEmail.text.toString()
             val inputPassword = binding.edtPassword.text.toString()
 
-            apiList.postRequestLogin(inputEmail, inputPassword).enqueue(object : Callback<JSONObject> {
-                override fun onResponse(call: Call<JSONObject>, response: Response<JSONObject>) {
+            apiList.postRequestLogin(inputEmail, inputPassword).enqueue(object : Callback<BasicResponse> {
+                override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
 
                     Log.d("응답확인", response.toString())
 
@@ -50,7 +51,7 @@ class SignInActivity : BaseActivity() {
 
                 }
 
-                override fun onFailure(call: Call<JSONObject>, t: Throwable) {
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
 //                    서버에 물리적 연결 실패.
                 }
 
