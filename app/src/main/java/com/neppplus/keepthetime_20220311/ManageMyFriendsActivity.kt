@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
+import com.neppplus.keepthetime_20220311.adapters.MyFriendAdapter
 import com.neppplus.keepthetime_20220311.databinding.ActivityManageMyFriendsBinding
 import com.neppplus.keepthetime_20220311.datas.BasicResponse
 import com.neppplus.keepthetime_20220311.datas.UserData
@@ -18,6 +19,8 @@ class ManageMyFriendsActivity : BaseActivity() {
 
     val mFriendList = ArrayList<UserData>()
 
+    lateinit var mAdapter: MyFriendAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_manage_my_friends)
@@ -31,6 +34,10 @@ class ManageMyFriendsActivity : BaseActivity() {
 
     override fun setValues() {
         getMyFriendListFromServer()
+
+        mAdapter = MyFriendAdapter( mContext, R.layout.my_friend_list_item, mFriendList )
+        binding.myFriendsListView.adapter = mAdapter
+
     }
 
     fun getMyFriendListFromServer() {
@@ -51,6 +58,7 @@ class ManageMyFriendsActivity : BaseActivity() {
                     mFriendList.addAll( br.data.friends )
 
 //                    어댑터 새로 고침
+                    mAdapter.notifyDataSetChanged()
 
 
                 }
