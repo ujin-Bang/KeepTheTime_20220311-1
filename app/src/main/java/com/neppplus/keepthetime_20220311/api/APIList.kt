@@ -3,10 +3,7 @@ package com.neppplus.keepthetime_20220311.api
 import com.neppplus.keepthetime_20220311.datas.BasicResponse
 import org.json.JSONObject
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
-import retrofit2.http.PUT
+import retrofit2.http.*
 
 interface APIList {
 
@@ -26,6 +23,11 @@ interface APIList {
         @Field("email") email: String,
         @Field("password") pw: String,
         @Field("nick_name") nick: String,
+    ) : Call<BasicResponse>
+
+    @GET("/user")
+    fun getRequestMyInfo(
+        @Header("X-Http-Token") token: String,
     ) : Call<BasicResponse>
 
 }
