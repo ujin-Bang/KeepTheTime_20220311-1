@@ -1,5 +1,6 @@
 package com.neppplus.keepthetime_20220311
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -29,6 +30,13 @@ class ManageMyFriendsActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        binding.btnAddFriend.setOnClickListener {
+
+            val myIntent = Intent(mContext, SearchUserActivity::class.java)
+            startActivity(myIntent)
+
+        }
 
     }
 
