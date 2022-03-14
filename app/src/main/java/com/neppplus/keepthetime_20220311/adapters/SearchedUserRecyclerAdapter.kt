@@ -29,6 +29,8 @@ class SearchedUserRecyclerAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
+//        실제 데이터 반영 함수
+
     }
 
 //    몇개의 아이템을 보여줄 예정인지? => 데이터목록의 갯수만큼.

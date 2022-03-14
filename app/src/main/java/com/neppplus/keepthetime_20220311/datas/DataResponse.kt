@@ -12,5 +12,8 @@ class DataResponse(
     val token: String,
 
     val friends: List<UserData>, // 친구목록을 불러올때 사용할 변수
+
+    val users: List<UserData>, // 검색 결과의 사용자 목록.
+
 ) {
 }
