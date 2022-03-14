@@ -4,6 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.neppplus.keepthetime_20220311.R
 import com.neppplus.keepthetime_20220311.datas.UserData
@@ -14,6 +17,13 @@ class SearchedUserRecyclerAdapter(
 ) : RecyclerView.Adapter<SearchedUserRecyclerAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        val imgProfile = view.findViewById<ImageView>(R.id.imgProfile)
+        val txtNickname = view.findViewById<TextView>(R.id.txtNickname)
+        val imgSocialLoginLogo = view.findViewById<ImageView>(R.id.imgSocialLoginLogo)
+        val txtEmail = view.findViewById<TextView>(R.id.txtEmail)
+        val btnAddFriend = view.findViewById<Button>(R.id.btnAddFriend)
+
 
     }
 
