@@ -45,17 +45,26 @@ class MyFriendAdapter(
 //                이메일 표시
                 txtEmail.text = data.email
 //                로고 이미지 숨김
+                imgSocialLoginLogo.visibility = View.GONE
             }
             "kakao" -> {
 //                "카카오로그인"
                 txtEmail.text = "카카오로그인"
 //                로고 이미지 : 카카오 아이콘
+                imgSocialLoginLogo.visibility = View.VISIBLE
+                Glide.with(mContext).load(R.drawable.kakao_logo).into(imgSocialLoginLogo)
             }
             "facebook" -> {
                 txtEmail.text = "페북 로그인"
+                imgSocialLoginLogo.visibility = View.VISIBLE
+                Glide.with(mContext).load(R.drawable.facebook_logo).into(imgSocialLoginLogo)
             }
             "naver" -> {
                 txtEmail.text  = "네이버 로그인"
+                imgSocialLoginLogo.visibility = View.VISIBLE
+
+//                Glide는 웹의 이미지 뿐 아니라, 우리 프로젝트 내부의 이미지도 불러낼 수 있다.
+                Glide.with(mContext).load(R.drawable.naver_logo).into(imgSocialLoginLogo)
             }
             else -> {
 //                그 외의 잘못된 경우.
