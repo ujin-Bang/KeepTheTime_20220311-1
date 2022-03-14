@@ -10,5 +10,7 @@ package com.neppplus.keepthetime_20220311.datas
 class DataResponse(
     val user: UserData,
     val token: String,
+
+    val friends: List<UserData>, // 친구목록을 불러올때 사용할 변수
 ) {
 }

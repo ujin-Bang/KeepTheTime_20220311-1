@@ -12,4 +12,5 @@ class UserData(
     val profile_img: String,
 
 ) {
+
 }
