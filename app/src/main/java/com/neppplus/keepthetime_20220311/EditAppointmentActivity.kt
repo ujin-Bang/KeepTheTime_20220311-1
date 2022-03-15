@@ -37,6 +37,20 @@ class EditAppointmentActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+        //저장 버튼이 눌리면
+        binding.btnSave.setOnClickListener {
+            //장소를 선택했는지? 안했다면 등록 거부
+            if(mSelectedLatLng == null) {
+
+                Toast.makeText(mContext, "약속 장소를 선택하지 않았습니다", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+
+            }
+
+            Log.d("선택한 약속장소 - 위도 ", "위도:${mSelectedLatLng!!.latitude}")
+            Log.d("선택한 약속장소 - 경도 ", "경도:${mSelectedLatLng!!.longitude}")
+        }
+
 //        날짜 선택 텍스트뷰 클릭 이벤트 - DatePickerDialog
         binding.txtDate.setOnClickListener {
 
@@ -121,15 +135,18 @@ class EditAppointmentActivity : BaseActivity() {
             marker!!.position = coord
             marker!!.map = naverMap
 
+//            처음 선택된 좌표 -> 학원 위치
+            mSelectedLatLng = coord
+
             //지도 클릭 이벤트
             naverMap.setOnMapClickListener { pointF, latLng ->
 
                 Log.d("클릭된 위/경도","위도:${latLng.latitude},경도:${latLng.longitude}")
 
                 //마커를 새로 추가
-                val newMarker = Marker()
-                newMarker!!.position = latLng
-                newMarker!!.map = naverMap
+
+                Marker!!.position = latLng
+                Marker!!.map = naverMap
             }
 
         }
