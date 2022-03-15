@@ -49,9 +49,9 @@ class EditAppointmentActivity : BaseActivity() {
             val dpd = DatePickerDialog(
                 mContext,
                 dsl,
-                2022,
-                3,
-                15
+                mSelectedAppointmentDateTime.get(Calendar.YEAR),
+                mSelectedAppointmentDateTime.get(Calendar.MONTH),
+                mSelectedAppointmentDateTime.get(Calendar.DAY_OF_MONTH)
             ).show()
 
         }
