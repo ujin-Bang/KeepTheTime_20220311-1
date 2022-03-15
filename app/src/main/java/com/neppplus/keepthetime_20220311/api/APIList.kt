@@ -58,4 +58,14 @@ interface APIList {
         @Field("type") type: String,
     ) : Call<BasicResponse>
 
+    @FormUrlEncoded
+    @POST("appoointment")
+    fun postRequestAddAppointment(
+        @Field("title") title:String,
+        @Field("datetime") datetime: String,
+        @Field("place") place: String,
+        @Field("latitued") lat: Double,
+        @Field("longitude") lng: Double,
+    ): Call<BasicResponse>
+
 }
