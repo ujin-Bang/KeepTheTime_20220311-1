@@ -66,7 +66,12 @@ class EditAppointmentActivity : BaseActivity() {
             val tsl = object : TimePickerDialog.OnTimeSetListener{
                 override fun onTimeSet(p0: TimePicker?, hourOfDay: Int, minute: Int) {
 
-                    Toast.makeText(mContext, "${hourOfDay}시${minute}분 선택", Toast.LENGTH_SHORT).show()
+//                    약속일시의 시간으로 설정.
+                    mSelectedAppointmentDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    mSelectedAppointmentDateTime.set(Calendar.MINUTE, minute)
+
+                    val sdf = SimpleDateFormat("a h시 m분")
+                    binding.txtTime.text = sdf.format(mSelectedAppointmentDateTime.time)
 
                 }
 
