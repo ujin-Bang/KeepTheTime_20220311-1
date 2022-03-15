@@ -15,7 +15,7 @@ class MainActivity : BaseActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    lateinit var mAdapter: MainViewPagerAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,10 +30,5 @@ class MainActivity : BaseActivity() {
 
     override fun setValues() {
 
-        mAdapter = MainViewPagerAdapter( supportFragmentManager )
-        binding.mainViewPager.adapter = mAdapter
 
-        binding.mainTabLayout.setupWithViewPager( binding.mainViewPager )
-
-    }
 }
