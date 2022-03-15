@@ -72,12 +72,11 @@
             android:layout_height="wrap_content"
             android:hint="장소 입력"/>
 
-        <fragment
-            android:id="@+id/map"
+        <com.naver.maps.map.MapView
+            android:id="@+id/naverMapView"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:layout_marginTop="5dp"
-            class="com.naver.maps.map.MapFragment"/>
+            android:layout_marginTop="5dp"/>
         <Button
             android:id="@+id/btnSave"
             android:layout_marginTop="5dp"
