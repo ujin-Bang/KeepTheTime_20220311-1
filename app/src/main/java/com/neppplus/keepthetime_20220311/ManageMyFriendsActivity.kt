@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
+import com.neppplus.keepthetime_20220311.adapters.FriendViewPagerAdapter
 import com.neppplus.keepthetime_20220311.adapters.MyFriendAdapter
 import com.neppplus.keepthetime_20220311.databinding.ActivityManageMyFriendsBinding
 import com.neppplus.keepthetime_20220311.datas.BasicResponse
@@ -17,6 +18,8 @@ import retrofit2.Response
 class ManageMyFriendsActivity : BaseActivity() {
 
     lateinit var binding: ActivityManageMyFriendsBinding
+
+    lateinit var mAdapter: FriendViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +40,11 @@ class ManageMyFriendsActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+        mAdapter = FriendViewPagerAdapter(supportFragmentManager)
+        binding.friendViewPager.adapter = mAdapter
+
+        binding.friendsTabLayout.setupWithViewPager( binding.friendViewPager )
 
     }
 
