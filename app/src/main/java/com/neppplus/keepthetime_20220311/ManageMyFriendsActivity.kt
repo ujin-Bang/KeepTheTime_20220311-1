@@ -51,7 +51,6 @@ class ManageMyFriendsActivity : BaseActivity() {
     fun getMyFriendListFromServer() {
 
         apiList.getRequestFriendList(
-            ContextUtil.getLoginUserToken(mContext),
             "my"  // 수락 완료된 친구목록만 불러오기
         ).enqueue(object : Callback<BasicResponse> {
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
