@@ -39,6 +39,9 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="15dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:background="@drawable/light_gray_border_box"
                 android:layout_height="wrap_content"
                 android:text="약속 일자"/>
 
@@ -47,12 +50,21 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="16sp"
                 android:padding="15dp"
+                android:textColor="@color/black"
+                android:background="@drawable/light_gray_border_box"
                 android:layout_height="wrap_content"
                 android:text="약속 시간"/>
 
 
         </LinearLayout>
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="약속 등록하기"/>
 
     </LinearLayout>
 </layout>
