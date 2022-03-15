@@ -4,10 +4,10 @@
     <item
         android:id="@+id/myAppointment"
         android:title="내 약속 목록"
-        android:icon="@drawable/clock_logo"/>
+        android:icon="@drawable/clock_icon"/>
 
     <item
         android:id="@+id/myProfile"
         android:title="내 프로필"
-        android:icon="@drawable/profile_icon"
+        android:icon="@drawable/profile_icon"/>
 </menu>
