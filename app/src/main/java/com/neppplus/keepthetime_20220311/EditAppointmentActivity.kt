@@ -28,7 +28,7 @@ class EditAppointmentActivity : BaseActivity() {
     val mSelectedAppointmentDateTime = Calendar.getInstance() //기본값: 현재일시
 
 //    약속 장소 관련 멤버변수.
-    val marker : Marker? = null //지도에 표시될 하나의 마커. 처음에는 찍지 않은 상태
+    var marker : Marker? = null //지도에 표시될 하나의 마커. 처음에는 찍지 않은 상태
 
     var mSelectedLatLng : LatLng? = null //약속 장소 위/경도 처음에는 설정하지 않은 상태
 
@@ -53,7 +53,7 @@ class EditAppointmentActivity : BaseActivity() {
 
             Log.d("선택한 약속장소 - 위도 ", "위도:${mSelectedLatLng!!.latitude}")
             Log.d("선택한 약속장소 - 경도 ", "경도:${mSelectedLatLng!!.longitude}")
-        }
+
         // 약속일시 -yyyy-MM-dd HH:mm 양식을 서버가 지정해서 요청
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm")
 
@@ -66,6 +66,7 @@ class EditAppointmentActivity : BaseActivity() {
         ).enqueue(object : Callback<BasicResponse>{
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
 
+
             }
 
             override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
@@ -73,7 +74,7 @@ class EditAppointmentActivity : BaseActivity() {
             }
 
         })
-
+        }
 //        날짜 선택 텍스트뷰 클릭 이벤트 - DatePickerDialog
         binding.txtDate.setOnClickListener {
 
@@ -168,8 +169,11 @@ class EditAppointmentActivity : BaseActivity() {
 
                 //마커를 새로 추가
 
-                Marker!!.position = latLng
-                Marker!!.map = naverMap
+                marker!!.position = latLng
+                marker!!.map = naverMap
+
+                // 약속 장소도 새 좌표로 설정
+                mSelectedLatLng = latLng
             }
 
         }
