@@ -15,6 +15,7 @@ import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.PathOverlay
 import com.neppplus.keepthetime_20220311.databinding.ActivityEditAppointmentBinding
 import com.neppplus.keepthetime_20220311.datas.BasicResponse
+import com.odsay.odsayandroidsdk.ODsayService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -229,6 +230,8 @@ class EditAppointmentActivity : BaseActivity() {
                 // 약속 장소도 새 좌표로 설정
                 mSelectedLatLng = latLng
 
+
+
 //                coord ~ 선택한 latLng까지 직선 그려보자(PathOverlay 기능 활용)
 
                 if(path == null){
@@ -239,7 +242,7 @@ class EditAppointmentActivity : BaseActivity() {
                 val coordList = ArrayList<LatLng>()
 
                 coordList.add(coord)// 출발지를 임시로 학원으로
-                coordList.add(latLng)// 클릭 된 좌표 ㅜ가
+                coordList.add(latLng)// 클릭 된 좌표
 
                 path!!.coords = coordList
 
