@@ -3,6 +3,9 @@ package com.neppplus.keepthetime_20220311
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
@@ -141,12 +144,27 @@ class ViewMapActivity : BaseActivity() {
 
                         val infoStr = "이동 시간 : ${minutes}분, 비용: ${payment}원"
 
-//                        정보창 띄우기
+//                        정보창 띄우기 => 원하는 모양으로 customView
                         val infoWindow = InfoWindow()
 
-                        infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(mContext){
-                            override fun getText(p0: InfoWindow): CharSequence {
-                                return infoStr
+                        infoWindow.adapter = object : InfoWindow.DefaultViewAdapter(mContext){
+                            override fun getContentView(p0: InfoWindow): View {
+
+//                                리턴 자료형 : View를 리턴.
+//                                View 객체를 만드는 방법? => LayoutInflater에게 inflate 시키면 > 그 겨로가물이 View.
+                                val view = LayoutInflater.from(mContext).inflate(R.layout.destination_info_window, null)
+
+                                val txtPlaceName = view.findViewById<TextView>(R.id.txtPlaceName)
+                                val txtMoveTime = view.findViewById<TextView>(R.id.txtMoveTime)
+                                val txtPayment = view.findViewById<TextView>(R.id.txtPayment)
+
+                                txtPlaceName.text = mAppointment.place
+
+                                txtMoveTime.text = "${minutes}분 소요"
+                                txtPayment.text = "${payment}원 필요"
+
+                                return view
+
                             }
 
                         }
