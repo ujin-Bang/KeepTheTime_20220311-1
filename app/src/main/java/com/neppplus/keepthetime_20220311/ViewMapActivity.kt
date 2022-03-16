@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
+import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.PathOverlay
 import com.neppplus.keepthetime_20220311.databinding.ActivityViewMapBinding
@@ -139,6 +140,18 @@ class ViewMapActivity : BaseActivity() {
                         val payment = infoObj.getInt("payment")
 
                         val infoStr = "이동 시간 : ${minutes}분, 비용: ${payment}원"
+
+//                        정보창 띄우기
+                        val infoWindow = InfoWindow()
+
+                        infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(mContext){
+                            override fun getText(p0: InfoWindow): CharSequence {
+                                return infoStr
+                            }
+
+                        }
+
+                        infoWindow.open(marker)
 
 
                     }
