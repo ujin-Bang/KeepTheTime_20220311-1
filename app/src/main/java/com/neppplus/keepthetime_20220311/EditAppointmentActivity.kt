@@ -316,7 +316,7 @@ class EditAppointmentActivity : BaseActivity() {
                             
                             val payment = infoObj.getInt("payment") //소요 비용
 
-//                            네이버 지도 라이브러리의 InfoWindow기능 활용
+//                            네이버 지도 라이브러리의 InfoWindow 기능 활용
                             val infoWindow = InfoWindow()
                             infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(mContext){
 
@@ -328,6 +328,18 @@ class EditAppointmentActivity : BaseActivity() {
                             }
 
                             infoWindow.open(marker!!)
+
+                            marker!!.setOnClickListener {
+
+                                if (marker!!.infoWindow == null) {
+                                    infoWindow.open(marker!!)
+                                }
+                                else {
+                                    infoWindow.close()
+                                }
+
+                                return@setOnClickListener true
+                            }
 
 
                         }
