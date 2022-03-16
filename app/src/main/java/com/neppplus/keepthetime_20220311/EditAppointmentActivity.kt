@@ -266,6 +266,9 @@ class EditAppointmentActivity : BaseActivity() {
 //                                첫번째 경로를 지나는 모든 정거장들의 위경도 값을 담을 목록
                             val stationLatLngList = ArrayList<LatLng>()
 
+//                            출발지 좌표를 정거장 목록에 먼저 추가.
+                            stationLatLngList.add(coord)
+
 //                            불광~강남: 도보 5분 /지하철 30분 /버스 30분 / 도보5분
                             val subPathArr = firstPathObj.getJSONArray("subPath")
 
@@ -294,6 +297,9 @@ class EditAppointmentActivity : BaseActivity() {
                                     }
                                 }
                             }
+
+//                            최종 정거장 ~ 도착지까지 직선
+                            stationLatLngList.add( latLng)
 
 //                            완성된 정거장 경로들을 =>path의 경로로 재설정. 지도에 새로 반영.
 
