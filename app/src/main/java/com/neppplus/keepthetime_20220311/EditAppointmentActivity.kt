@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
+import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.PathOverlay
 import com.neppplus.keepthetime_20220311.databinding.ActivityEditAppointmentBinding
@@ -315,7 +316,19 @@ class EditAppointmentActivity : BaseActivity() {
                             
                             val payment = infoObj.getInt("payment") //소요 비용
 
-                            Toast.makeText(mContext, "${totalTime}중, 비용: ${payment}원", Toast.LENGTH_SHORT).show()
+//                            네이버 지도 라이브러리의 InfoWindow기능 활용
+                            val infoWindow = InfoWindow()
+                            infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(mContext){
+
+                                override fun getText(p0: InfoWindow): CharSequence {
+
+                                    return "이동시간 : ${totalTime}분, 비용: ${payment}원"
+                                }
+
+                            }
+
+                            infoWindow.open(marker!!)
+
 
                         }
 
