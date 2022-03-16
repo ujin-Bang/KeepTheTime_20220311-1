@@ -38,7 +38,7 @@ class AppointmentRecyclerAdapter(
         txtTitle.text = data.title
         txtPlaceName.text = data.place
 
-//        서버가 주는 datatime(Date형태려 내려옴)
+//        서버가 주는 datetime(Date형태로 내려옴)
 
 //        출력하고 싶은 datatime(String - 22년 3월 5일 오후 2시 30분 양식)
 

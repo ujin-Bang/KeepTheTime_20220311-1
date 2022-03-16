@@ -51,13 +51,17 @@ class AppointmentListFragment : BaseFragment() {
 
     override fun setValues() {
         
-       getMyAppointmentListFromServer()
-
         mAppointmentAdapter = AppointmentRecyclerAdapter(mContext, mAppointmentList)
         binding.appointmentRecyclerView.adapter = mAppointmentAdapter
 
         binding.appointmentRecyclerView.layoutManager = LinearLayoutManager(mContext)
         
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        getMyAppointmentListFromServer()
     }
     fun getMyAppointmentListFromServer(){
 
@@ -66,12 +70,18 @@ class AppointmentListFragment : BaseFragment() {
 
                 if(response.isSuccessful){
 
+//                    기존의 약속목록을 비우고 나서 추가
+
+                    mAppointmentList.clear()
+
                     val br = response.body()!!
 
                     mAppointmentList.addAll(br.data.appointments)
 
                     mAppointmentAdapter.notifyDataSetChanged()
                 }
+
+
             }
 
             override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
@@ -80,5 +90,6 @@ class AppointmentListFragment : BaseFragment() {
 
         })
     }
+
 
 }
