@@ -165,7 +165,7 @@ class EditAppointmentActivity : BaseActivity() {
             //지도 클릭 이벤트
             naverMap.setOnMapClickListener { pointF, latLng ->
 
-                Log.d("클릭된 위/경도","위도:${latLng.latitude},경도:${latLng.longitude}")
+//                Log.d("클릭된 위/경도","위도:${latLng.latitude},경도:${latLng.longitude}")
 
                 //마커를 새로 추가
 
