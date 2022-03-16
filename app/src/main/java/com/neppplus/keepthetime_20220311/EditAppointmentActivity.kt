@@ -152,23 +152,27 @@ class EditAppointmentActivity : BaseActivity() {
 
             naverMap.moveCamera(cameraUpdate)
 
-            // 첫 마커 좌표 -> 학원위치
+            // 첫 마커 좌표 -> 학원위치 -> null
 
          //  val marker = Marker() =>멤버변수로 하나의 마커만 만들어서 관리하자.
-            marker = Marker()
-            marker!!.position = coord
-            marker!!.map = naverMap
+//            marker = Marker()
+//            marker!!.position = coord
+//            marker!!.map = naverMap
 
 //            처음 선택된 좌표 -> 학원 위치
-            mSelectedLatLng = coord
+//            mSelectedLatLng = coord
 
             //지도 클릭 이벤트
             naverMap.setOnMapClickListener { pointF, latLng ->
 
 //                Log.d("클릭된 위/경도","위도:${latLng.latitude},경도:${latLng.longitude}")
 
-                //마커를 새로 추가
+                // (찍혀있는 마커가 없다면)마커를 새로 추가
+                if(marker == null) {
+                    marker = Marker()
+                }
 
+//                그 마커의 위치와 지도 적용
                 marker!!.position = latLng
                 marker!!.map = naverMap
 
