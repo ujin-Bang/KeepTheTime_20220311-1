@@ -73,4 +73,13 @@ interface APIList {
 
     @GET("/user/place")
     fun getRequestMyPlaceList() : Call<BasicResponse>
+
+    @FormUrlEncoded
+    @POST("/user/place")
+    fun postRequestAddMyplace(
+        @Field("name") name: String,
+        @Field("latitude") lat: Double,
+        @Field("longitude") lng: Double,
+        @Field("is_primary") isPrimay: Boolean,
+    ): Call<BasicResponse>
 }
