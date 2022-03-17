@@ -8,5 +8,41 @@
         android:orientation="vertical"
         tools:context=".EditMyPlaceActivity">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="장소 이름"/>
+
+        <EditText
+            android:id="@+id/edtPlacName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="장소의 이름을 자유롭게 입력하세요"
+            android:singleLine="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지도에서 위치 선택"
+            android:layout_marginTop="10dp"/>
+
+        <com.naver.maps.map.MapView
+            android:id="@+id/naverMapView"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"/>
+
+        <CheckBox
+            android:id="@+id/isPrimaryCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="기본 장소로 설정"/>
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="저장"/>
+
     </LinearLayout>
 </layout>
