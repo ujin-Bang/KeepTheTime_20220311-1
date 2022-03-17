@@ -37,6 +37,8 @@ android {
 
 dependencies {
 
+
+    implementation 'com.facebook.android:facebook-login:8.1.0'
     implementation "com.kakao.sdk:v2-user:2.8.6"
     implementation files('/libs/ODsayAndroidSDK.aar')
     implementation 'com.naver.maps:map-sdk:3.14.0'
