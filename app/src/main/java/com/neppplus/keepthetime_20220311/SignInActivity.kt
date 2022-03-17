@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.kakao.sdk.user.UserApiClient
 import com.neppplus.keepthetime_20220311.api.APIList
 import com.neppplus.keepthetime_20220311.api.ServerAPI
 import com.neppplus.keepthetime_20220311.databinding.ActivitySignInBinding
@@ -28,6 +29,26 @@ class SignInActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        binding.btnKakaoLogin.setOnClickListener {
+            //카톡 로그인 기능 실행
+
+//            카톡 앱 로긍니이 가능한지?
+            if(UserApiClient.instance.isKakaoTalkLoginAvailable(mContext)){
+
+                //카톡 앱이 설치되어 있는 상황
+                UserApiClient.instance.loginWithKakaoTalk(mContext){token, error ->
+                    Log.d("카카오 로그인 ", "카톡앱으로 로그인")
+                }
+            }
+            else{
+//                카톡 앱이 없는 상황. 로ㅡ인 창 띄워주기
+                UserApiClient.instance.loginWithKakaoAccount(mContext){token, error ->
+                    Log.d("카카오로그인","카톡앱이 없는 로그인")
+                }
+
+            }
+        }
 
         binding.btnSignUp.setOnClickListener {
 
