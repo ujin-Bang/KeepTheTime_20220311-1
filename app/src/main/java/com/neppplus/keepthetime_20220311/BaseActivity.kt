@@ -2,7 +2,9 @@ package com.neppplus.keepthetime_20220311
 
 import android.content.Context
 import android.os.Bundle
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.neppplus.keepthetime_20220311.api.APIList
 import com.neppplus.keepthetime_20220311.api.ServerAPI
 
@@ -19,9 +21,27 @@ abstract class BaseActivity : AppCompatActivity() {
 
         val retrofit = ServerAPI.getRetrofit(mContext)
         apiList = retrofit.create( APIList::class.java )
+
+        supportActionBar?.let {
+            setCustomActionBar()
+        }
+
     }
 
     abstract fun setupEvents()
     abstract fun setValues()
+
+    fun setCustomActionBar() {
+
+        val defaultActionBar = supportActionBar!!
+
+        defaultActionBar.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        //    위에 문장이 안될시 =>    defaultActionBar.setDisplayShowCustomEnabled(true)
+
+        defaultActionBar.setCustomView(R.layout.my_custom_action_bar)
+
+        val toolBar = defaultActionBar.customView.parent as Toolbar
+        toolBar.setContentInsetsAbsolute(0,0)
+    }
 
 }
