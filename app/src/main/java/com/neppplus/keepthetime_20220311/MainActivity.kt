@@ -42,8 +42,14 @@ class MainActivity : BaseActivity() {
             //어떤 메뉴가 선택되었는지 it 변수가 알려줌.
 
             when(it.itemId) {
-                R.id.myAppointment -> binding.mainViewPager2.currentItem = 0
-                R.id.myProfile -> binding.mainViewPager2.currentItem = 1
+                R.id.myAppointment -> {
+                    binding.mainViewPager2.currentItem = 0
+                    btnAdd.visibility = View.VISIBLE
+                }
+                R.id.myProfile -> {
+                    binding.mainViewPager2.currentItem = 1
+                    btnAdd.visibility = View.GONE
+                }
             }
 
             return@setOnItemSelectedListener true
