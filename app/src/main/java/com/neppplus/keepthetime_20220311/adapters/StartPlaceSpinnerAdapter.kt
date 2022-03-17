@@ -29,6 +29,10 @@ class StartPlaceSpinnerAdapter(
 
         val data = mList[position]
 
+        val txtStrartPlaceName = row.findViewById<TextView>(R.id.txtStrartPlaceName)
+
+        txtStrartPlaceName.text = data.name
+
 
 
 
