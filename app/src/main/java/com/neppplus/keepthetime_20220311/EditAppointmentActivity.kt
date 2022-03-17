@@ -75,6 +75,8 @@ class EditAppointmentActivity : BaseActivity() {
 //                선택한 출발지 ~ 지도에서 클릭한 도착지까지의 이동경로 /교통 정보 표현.
 
 
+
+
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -268,9 +270,13 @@ class EditAppointmentActivity : BaseActivity() {
 
         //로딩이 끝난 네이버 지도를 가지고 실행할 코드
 
+        //출발 지점이 선택 되어야 세팅 진행
+        if(mSelectedStartPlace == null){
+            return
+        }
 
-//            지도 시작지점 : 학원 위/경도
-        val coord = LatLng( 37.577992654134604, 127.03362625538472)
+//            지도 시작지점 : 선택된 출발 지점.
+        val coord = LatLng(mSelectedStartPlace!!.latitude, mSelectedStartPlace!!.longitude)
 
         //coord에 설정한 좌표로 > 네이버지도의 카메라 이동
 
@@ -309,128 +315,6 @@ class EditAppointmentActivity : BaseActivity() {
 
 //                coord ~ 선택한 latLng까지 대중교통 경로를 그려보자(PathOverlay 기능 활용) + ODSay라이브러리 활용
 
-            val myODSayService = ODsayService.init(mContext, "gw9m7KtTSb97PJwg3C/jQx+OKMjdKmugQKqgeBp44Vk")
-
-            myODSayService.requestSearchPubTransPath(
-
-                coord.longitude.toString(),
-                coord.latitude.toString(),
-                latLng.longitude.toString(),
-                latLng.latitude.toString(),
-                null,
-                null,
-                null,
-                object : OnResultCallbackListener {
-                    override fun onSuccess(p0: ODsayData?, p1: API?) {
-
-                        val jsonObj = p0!!.json!!
-                        Log.d("길찾기 응답", jsonObj.toString())
-
-                        val resultObj = jsonObj.getJSONObject("result")
-                        Log.d("result", resultObj.toString())
-
-                        val pathArr = resultObj.getJSONArray("path")//여러 추천 경로 중 첫번째만 사용해보자
-
-                        val firstPathObj = pathArr.getJSONObject(0) //무조건 0번째 경로 추출
-                        Log.d("첫번째경로", firstPathObj.toString())
-
-
-//                                첫번째 경로를 지나는 모든 정거장들의 위경도 값을 담을 목록
-                        val stationLatLngList = ArrayList<LatLng>()
-
-//                            출발지 좌표를 정거장 목록에 먼저 추가.
-                        stationLatLngList.add(coord)
-
-//                            불광~강남: 도보 5분 /지하철 30분 /버스 30분 / 도보5분
-                        val subPathArr = firstPathObj.getJSONArray("subPath")
-
-                        for (i in 0 until subPathArr.length()){
-                            val subPathObj = subPathArr.getJSONObject(i)
-
-//                                둘러보려는 경로가 정거장 목록을 내려준다면(지하철 or 버스) => 내부 파싱
-
-                            if( !subPathObj.isNull("passStopList")){
-
-                                val passStopLisObj = subPathObj.getJSONObject("passStopList")
-                                val stationsArr = passStopLisObj.getJSONArray("stations")
-
-
-//                                    실제 정거장 목록 파싱 => 각정거장의 위도/ 경도 추출 가능 => ArrayList에 담아서 경로선의 좌표로 활용.
-                                for (j in 0 until stationsArr.length()){
-
-                                    val stationObj = stationsArr.getJSONObject(j)
-
-//                                        위도(y좌표), 경도(x좌표) 추출
-                                    val lat = stationObj.getString("y").toDouble()
-                                    val lng = stationObj.getString("x").toDouble()
-
-//                                        네이버 지도의 좌표로 만들어서 > ArrayList에 담자
-                                    stationLatLngList.add(LatLng(lat, lng))
-                                }
-                            }
-                        }
-
-//                            최종 정거장 ~ 도착지까지 직선
-                        stationLatLngList.add( latLng)
-
-//                            완성된 정거장 경로들을 =>path의 경로로 재설정. 지도에 새로 반영.
-
-                        path!!.coords = stationLatLngList
-                        path!!.map = naverMap
-
-//                            (첫번째 추천 경로의) 정보 항목도 파싱
-//                            예상 소요시간 파싱 => 임시로 토스트 출력.
-
-                        val infoObj = firstPathObj.getJSONObject("info")
-
-                        val totalTime = infoObj.getInt("totalTime") //소요 분
-
-                        val payment = infoObj.getInt("payment") //소요 비용
-
-//                            네이버 지도 라이브러리의 InfoWindow 기능 활용
-                        val infoWindow = InfoWindow()
-                        infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(mContext){
-
-                            override fun getText(p0: InfoWindow): CharSequence {
-
-                                return "이동시간 : ${totalTime}분, 비용: ${payment}원"
-                            }
-
-                        }
-
-                        infoWindow.open(marker!!)
-
-                        marker!!.setOnClickListener {
-
-                            if (marker!!.infoWindow == null) {
-                                infoWindow.open(marker!!)
-                            }
-                            else {
-                                infoWindow.close()
-                            }
-
-                            return@setOnClickListener true
-                        }
-
-//                            연습문제 - 카메라를 latLng(클릭한 위치)가 가운데로 오도록 세팅.
-//                          공식 문서 활용 연습문제
-                        val cameraUpdate = CameraUpdate.scrollTo(latLng)
-                        naverMap!!.moveCamera(cameraUpdate)
-
-
-                    }
-
-                    override fun onError(p0: Int, p1: String?, p2: API?) {
-
-                    }
-
-                }
-
-            )
-
-            if(path == null){
-                path = PathOverlay()
-            }
 
 //                ArrayList를 만들어서 출발지와 도착지를 추가.
             val coordList = ArrayList<LatLng>()
@@ -442,8 +326,137 @@ class EditAppointmentActivity : BaseActivity() {
 
             path!!.map = naverMap
 
+            //길찾기 API실행
+            findWay()
+
         }
 
+
+    }
+    //길찾기 관련 코드를 별도 함수로 => 여러곳에서 활용 가능
+    fun findWay(){
+        val myODSayService = ODsayService.init(mContext, "gw9m7KtTSb97PJwg3C/jQx+OKMjdKmugQKqgeBp44Vk")
+
+        myODSayService.requestSearchPubTransPath(
+
+            mSelectedStartPlace!!.longitude.toString(),
+            mSelectedStartPlace!!.latitude.toString(),
+            mSelectedLatLng!!.longitude.toString(),
+            mSelectedLatLng!!.latitude.toString(),
+            null,
+            null,
+            null,
+            object : OnResultCallbackListener {
+                override fun onSuccess(p0: ODsayData?, p1: API?) {
+
+                    val jsonObj = p0!!.json!!
+                    Log.d("길찾기 응답", jsonObj.toString())
+
+                    val resultObj = jsonObj.getJSONObject("result")
+                    Log.d("result", resultObj.toString())
+
+                    val pathArr = resultObj.getJSONArray("path")//여러 추천 경로 중 첫번째만 사용해보자
+
+                    val firstPathObj = pathArr.getJSONObject(0) //무조건 0번째 경로 추출
+                    Log.d("첫번째경로", firstPathObj.toString())
+
+
+//                                첫번째 경로를 지나는 모든 정거장들의 위경도 값을 담을 목록
+                    val stationLatLngList = ArrayList<LatLng>()
+
+//                            출발지 좌표를 정거장 목록에 먼저 추가.
+                    stationLatLngList.add( LatLng(mSelectedStartPlace!!.latitude,mSelectedStartPlace!!.longitude))
+
+//                            불광~강남: 도보 5분 /지하철 30분 /버스 30분 / 도보5분
+                    val subPathArr = firstPathObj.getJSONArray("subPath")
+
+                    for (i in 0 until subPathArr.length()){
+                        val subPathObj = subPathArr.getJSONObject(i)
+
+//                                둘러보려는 경로가 정거장 목록을 내려준다면(지하철 or 버스) => 내부 파싱
+
+                        if( !subPathObj.isNull("passStopList")){
+
+                            val passStopLisObj = subPathObj.getJSONObject("passStopList")
+                            val stationsArr = passStopLisObj.getJSONArray("stations")
+
+
+//                                    실제 정거장 목록 파싱 => 각정거장의 위도/ 경도 추출 가능 => ArrayList에 담아서 경로선의 좌표로 활용.
+                            for (j in 0 until stationsArr.length()){
+
+                                val stationObj = stationsArr.getJSONObject(j)
+
+//                                        위도(y좌표), 경도(x좌표) 추출
+                                val lat = stationObj.getString("y").toDouble()
+                                val lng = stationObj.getString("x").toDouble()
+
+//                                        네이버 지도의 좌표로 만들어서 > ArrayList에 담자
+                                stationLatLngList.add(LatLng(lat, lng))
+                            }
+                        }
+                    }
+
+//                            최종 정거장 ~ 도착지까지 직선
+                    stationLatLngList.add( mSelectedLatLng!!)
+
+//                            완성된 정거장 경로들을 =>path의 경로로 재설정. 지도에 새로 반영.
+
+                    path!!.coords = stationLatLngList
+                    path!!.map = naverMap
+
+//                            (첫번째 추천 경로의) 정보 항목도 파싱
+//                            예상 소요시간 파싱 => 임시로 토스트 출력.
+
+                    val infoObj = firstPathObj.getJSONObject("info")
+
+                    val totalTime = infoObj.getInt("totalTime") //소요 분
+
+                    val payment = infoObj.getInt("payment") //소요 비용
+
+//                            네이버 지도 라이브러리의 InfoWindow 기능 활용
+                    val infoWindow = InfoWindow()
+                    infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(mContext){
+
+                        override fun getText(p0: InfoWindow): CharSequence {
+
+                            return "이동시간 : ${totalTime}분, 비용: ${payment}원"
+                        }
+
+                    }
+
+                    infoWindow.open(marker!!)
+
+                    marker!!.setOnClickListener {
+
+                        if (marker!!.infoWindow == null) {
+                            infoWindow.open(marker!!)
+                        }
+                        else {
+                            infoWindow.close()
+                        }
+
+                        return@setOnClickListener true
+                    }
+
+//                            연습문제 - 카메라를 latLng(클릭한 위치)가 가운데로 오도록 세팅.
+//                          공식 문서 활용 연습문제
+                    val cameraUpdate = CameraUpdate.scrollTo(mSelectedLatLng!!)
+                    naverMap!!.moveCamera(cameraUpdate)
+
+
+                }
+
+                override fun onError(p0: Int, p1: String?, p2: API?) {
+
+                }
+
+            }
+
+        )
+
+        if(path == null){
+            path = PathOverlay()
+        }
 
     }
 
