@@ -124,8 +124,38 @@ class SignInActivity : BaseActivity() {
          UserApiClient.instance.me { user, error -> 
              
              user?.let {
+                
+                 //내 정보가 불러와지면 우리 앱 서버에 소셜로그인 정보 전달 => 토큰 발급
+                 apiList.postRequestSocialLogin(
+                     "kakao",
+                     it.id!!.toString(),
+                     it.kakaoAccount!!.profile!!.nickname!!
+                 ).enqueue(object : Callback<BasicResponse>{
+                     override fun onResponse(
+                         call: Call<BasicResponse>,
+                         response: Response<BasicResponse>
+                     ) {
+                         
+                         if(response.isSuccessful){
+                             
+                             val br = response.body()!!
+                             
+                             ContextUtil.setLoginUserToken(mContext,br.data.token)
+                             
+                             val mayIntent = Intent(mContext, MainActivity::class.java)
+                             startActivity(mayIntent)
 
-                 Toast.makeText(mContext, "닉네임: ${it.kakaoAccount?.profile?.nickname}", Toast.LENGTH_SHORT).show()
+                             Toast.makeText(mContext, "${br.data.user.nick_name}님 카톡로그인 환영합니다", Toast.LENGTH_SHORT).show()
+                             
+                         }
+                         
+                     }
+
+                     override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+                         
+                     }
+
+                 })
              }
              
          }
