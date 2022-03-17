@@ -10,6 +10,7 @@
         tools:context=".EditAppointmentActivity">
 
         <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -93,11 +94,23 @@
                     android:layout_height="wrap_content"
                     android:hint="장소 입력"/>
 
-                <com.naver.maps.map.MapView
-                    android:id="@+id/naverMapView"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_marginTop="5dp"/>
+                    android:layout_height="wrap_content">
+
+                    <com.naver.maps.map.MapView
+                        android:id="@+id/naverMapView"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_marginTop="5dp"/>
+
+                    <TextView
+                        android:id="@+id/txtScrollHelp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+
+                </FrameLayout>
                 <Button
                     android:id="@+id/btnSave"
                     android:layout_marginTop="5dp"
