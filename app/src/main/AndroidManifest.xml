@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KeepTheTime_20220311">
         <activity
+            android:name=".ManagePlacesActivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewMapActivity"
             android:exported="false" />
         <activity
