@@ -63,6 +63,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="출발장소"
+            android:layout_marginTop="15dp"/>
+
+        <Spinner
+            android:id="@+id/startPlaceSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="약속장소 "
             android:layout_marginTop="10dp"/>
 
