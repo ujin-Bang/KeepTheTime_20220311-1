@@ -325,6 +325,9 @@ class EditAppointmentActivity : BaseActivity() {
 
 //                coord ~ 선택한 latLng까지 대중교통 경로를 그려보자(PathOverlay 기능 활용) + ODSay라이브러리 활용
 
+            if(path == null) {
+                path = PathOverlay()
+            }
 
 //                ArrayList를 만들어서 출발지와 도착지를 추가.
             val coordList = ArrayList<LatLng>()
