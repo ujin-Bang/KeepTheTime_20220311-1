@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "997760912929",
+    "project_id": "keepthetime-2022031100",
+    "storage_bucket": "keepthetime-2022031100.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997760912929:android:13cd3a83b63f92b1741d60",
+        "android_client_info": {
+          "package_name": "com.neppplus.keepthetime_20220311"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997760912929-npfkmi3eu880rf153qqqhaoup04qjsrr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF6HN1RcDoSTgHJNRNjpu0jVRM9xtuKS0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997760912929-npfkmi3eu880rf153qqqhaoup04qjsrr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

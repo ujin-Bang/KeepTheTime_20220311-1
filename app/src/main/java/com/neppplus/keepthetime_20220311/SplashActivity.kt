@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Base64
 import android.util.Log
+import com.google.firebase.messaging.FirebaseMessaging
 import com.neppplus.keepthetime_20220311.datas.BasicResponse
 import com.neppplus.keepthetime_20220311.utils.ContextUtil
 import retrofit2.Call
@@ -67,7 +68,14 @@ class SplashActivity : BaseActivity() {
         } , 2500)
 
         getKeyHash()
+        getFCMDeviceToken()
+    }
 
+    fun getFCMDeviceToken(){
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener{
+            Log.d("파이어베이스 토큰확인",it.result!!)
+        }
     }
 
     fun getKeyHash(){
