@@ -78,6 +78,7 @@ class MyProfileFragment : BaseFragment() {
             TedPermission.create()
                 .setPermissionListener( pl )
                 .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .check()
         }
 
 
