@@ -161,6 +161,11 @@ class MyProfileFragment : BaseFragment() {
                         response: Response<BasicResponse>
                     ) {
 
+                        if(response.isSuccessful){
+                            Toast.makeText(mContext, "프로필 사진이 변경되었습니다", Toast.LENGTH_SHORT).show()
+//                        선택해둔 이미지로 UI반영
+                            Glide.with(mContext).load(selectedImageUri).into(binding.imgProfile)
+                        }
                     }
 
                     override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
