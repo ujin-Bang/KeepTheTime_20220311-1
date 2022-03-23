@@ -19,9 +19,11 @@ import com.neppplus.keepthetime_20220311.SplashActivity
 import com.neppplus.keepthetime_20220311.databinding.FragmentMyProfileBinding
 import com.neppplus.keepthetime_20220311.datas.BasicResponse
 import com.neppplus.keepthetime_20220311.utils.ContextUtil
+import com.neppplus.keepthetime_20220311.utils.URIPathHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 class MyProfileFragment : BaseFragment() {
 
@@ -137,9 +139,8 @@ class MyProfileFragment : BaseFragment() {
 
                 val selectedImageUri = data?.data!! //선택한 사진에 찾아갈 경로(Uri) 받아내기
 
-//                임시 : 선택한 사진을 이미지뷰에 반영.
-                Glide.with(mContext).load(selectedImageUri).into(binding.imgProfile)
-
+//                Uri -> 실제 첨부 가능한 파일형태로 변환.(File객체를 Path를 통해 만든다) -> Retrofit에 첨부할 수 있게 됨.
+                val file = File( URIPathHelper().getPath(mContext, selectedImageUri) )
             }
         }
 
