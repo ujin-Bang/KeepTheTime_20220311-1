@@ -1,5 +1,6 @@
 package com.neppplus.keepthetime_20220311.fragments
 
+import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -122,6 +123,25 @@ class MyProfileFragment : BaseFragment() {
             }
 
         })
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == REQ_CODE_GALLERY) {
+
+            if(resultCode == Activity.RESULT_OK){
+
+//                data? 선택된 사진에 대한 정보를 가지고 있다.
+
+                val selectedImageUri = data?.data!! //선택한 사진에 찾아갈 경로(Uri) 받아내기
+
+//                임시 : 선택한 사진을 이미지뷰에 반영.
+                Glide.with(mContext).load(selectedImageUri).into(binding.imgProfile)
+
+            }
+        }
 
     }
 
