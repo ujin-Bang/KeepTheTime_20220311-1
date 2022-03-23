@@ -1,5 +1,6 @@
 package com.neppplus.keepthetime_20220311.fragments
 
+import android.Manifest
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
@@ -12,6 +13,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.normal.TedPermission
 import com.neppplus.keepthetime_20220311.ManageMyFriendsActivity
 import com.neppplus.keepthetime_20220311.ManagePlacesActivity
 import com.neppplus.keepthetime_20220311.R
@@ -52,15 +55,29 @@ class MyProfileFragment : BaseFragment() {
     override fun setupEvents() {
 
         binding.imgProfile.setOnClickListener{
-//            이미지 선택 화면으로 이동 - 안드로이드 제공 화면 활용 : Intent(4)
+
+//            이미지 조회 권한 확인
+            val pl = object : PermissionListener{
+                override fun onPermissionGranted() {
+                    //   이미지 선택 화면으로 이동 - 안드로이드 제공 화면 활용 : Intent(4)
 
 //            다른 화면에서 결과 받아오기 - Intent(3) : startActivityForResult
 
-            val myIntent = Intent()
-                myIntent.action = Intent.ACTION_PICK //뭔가 가지러 가는 행동이라고 명시
-                myIntent.type = android.provider.MediaStore.Images.Media.CONTENT_TYPE //사진을 가지러 간다고 명시
-                startActivityForResult( myIntent,REQ_CODE_GALLERY)
+                    val myIntent = Intent()
+                    myIntent.action = Intent.ACTION_PICK //뭔가 가지러 가는 행동이라고 명시
+                    myIntent.type = android.provider.MediaStore.Images.Media.CONTENT_TYPE //사진을 가지러 간다고 명시
+                    startActivityForResult( myIntent,REQ_CODE_GALLERY)
+                }
 
+                override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+                    Toast.makeText(mContext, "갤러리 권한이 없습니다.", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+
+            TedPermission.create()
+                .setPermissionListener( pl )
+                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
         }
 
 
